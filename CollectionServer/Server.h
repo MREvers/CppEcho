@@ -15,9 +15,11 @@ public:
    void Start(bool abEcho = false);
    void Stop();
 
+   bool HasClient(unsigned int aiClient);
    void ServerThread();
    std::vector<unsigned int> GetClients();
    void SendMsg(unsigned int aiClient, std::string aszMsg);
+   std::string RecvMsg(unsigned int aiClient);
    std::string Echo(unsigned int aiClient);
 
 private:

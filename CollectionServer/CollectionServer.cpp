@@ -2,14 +2,19 @@
 //
 #include <iostream>
 #include <vector>
+#include <mutex>
 #include "Server.h"
 #include "ClientSocket.h"
+#include "ServerListener.h"
 
 int comm(Server& server)
 {
+   ServerListener listener;
+   std::mutex ioMutex;
    std::vector<unsigned int> veciClients;
    std::string sziClient;
    unsigned int iClient;
+   bool bInSess = false;
    bool bExit = false;
    bool bHasCon = false;
 
@@ -31,13 +36,23 @@ int comm(Server& server)
          std::cout << std::endl;
 
          iClient = std::stoi(sziClient);
+         bInSess = true;
+
+         listener.Listen(&server, &ioMutex, &bInSess);
 
          std::cout << "Send Msg: ";
-         std::cin >> sziClient;
-         std::cout << std::endl;
+         std::getline(std::cin, sziClient);
 
-         server.SendMsg(iClient, sziClient);
+         while ( ( sziClient != "quit" )      && 
+                 ( server.HasClient(iClient) ) )
+         {
+            server.SendMsg(iClient, sziClient);
+            
+            std::cout << "Send Msg: ";
+            std::getline(std::cin, sziClient);
+         }
 
+         bInSess = false;
          veciClients = server.GetClients();
          bHasCon = veciClients.size() > 0;
       }

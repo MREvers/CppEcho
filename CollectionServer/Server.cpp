@@ -34,6 +34,12 @@ void Server::Stop()
 }
 
 
+bool Server::HasClient(unsigned int aiClient)
+{
+   return m_ServerSocket->HasClient(aiClient);
+}
+
+
 void Server::ServerThread()
 {
    while (m_bRunning)
@@ -87,6 +93,21 @@ void Server::SendMsg(unsigned int aiClient, std::string aszMsg)
    m_MsgLock.lock();
    m_queMsgs.push(std::make_pair(aiClient, aszMsg));
    m_MsgLock.unlock();
+}
+
+
+std::string Server::RecvMsg(unsigned int aiClient)
+{
+   char recvBuf[PACKET_SIZE];
+   std::string szEcho;
+   int iRespSize = m_ServerSocket->ReceiveData( aiClient, recvBuf, PACKET_SIZE );
+
+   if (iRespSize > 0)
+   {
+      szEcho = std::string(recvBuf, recvBuf + iRespSize);
+   }
+
+   return szEcho;
 }
 
 

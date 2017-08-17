@@ -17,6 +17,7 @@ public:
    // Returns true if succesful connection. Stores connection id in id.
    bool AcceptNewConnection(unsigned int id);
 
+   bool HasClient(unsigned int id);
    std::vector<unsigned int> GetClients();
    int ReceiveData(unsigned int aclient_id, char* arecvbuf, unsigned int aiBuffsize);
    void SendTo(unsigned int aiClient, const std::string& aszMsg);

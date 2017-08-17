@@ -147,6 +147,7 @@
   <ItemGroup>
     <ClInclude Include="ClientSocket.h" />
     <ClInclude Include="Server.h" />
+    <ClInclude Include="ServerListener.h" />
     <ClInclude Include="ServerSocket.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="WinSocket.h" />
@@ -155,6 +156,7 @@
     <ClCompile Include="ClientSocket.cpp" />
     <ClCompile Include="CollectionServer.cpp" />
     <ClCompile Include="Server.cpp" />
+    <ClCompile Include="ServerListener.cpp" />
     <ClCompile Include="ServerSocket.cpp" />
     <ClCompile Include="WinSocket.cpp" />
   </ItemGroup>

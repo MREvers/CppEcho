@@ -106,6 +106,11 @@ bool ServerSocket::AcceptNewConnection(unsigned int id)
    return false;
 }
 
+bool ServerSocket::HasClient(unsigned int id)
+{
+   return m_Sessions.find(id) != m_Sessions.end();
+}
+
 std::vector<unsigned int> ServerSocket::GetClients()
 {
    std::vector<unsigned int> veciRetval;
