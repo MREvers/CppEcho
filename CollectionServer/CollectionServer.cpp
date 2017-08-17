@@ -31,11 +31,7 @@ int comm(Server& server)
          }
          std::cout << std::endl;
 
-         std::cout << "Send Msg To: ";
-         std::cin >> sziClient;
-         std::cout << std::endl;
-
-         iClient = std::stoi(sziClient);
+         iClient = veciClients.at(0);
          bInSess = true;
 
          listener.Listen(&server, &ioMutex, &bInSess);
@@ -55,6 +51,11 @@ int comm(Server& server)
          bInSess = false;
          veciClients = server.GetClients();
          bHasCon = veciClients.size() > 0;
+
+         if (!bHasCon)
+         {
+            std::cout << "Awaiting Connections...";
+         }
       }
       else
       {
